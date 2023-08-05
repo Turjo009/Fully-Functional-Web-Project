@@ -3,6 +3,7 @@
 A Web Application which hosts a server of a university club management website.
 
 ### Implementations of features:
+
 - Users without accounts should be able to view public information and updates for a club.
 - Users should be able to sign up and log in to the system in order to
   - Sign up/log in.
@@ -27,12 +28,14 @@ A Web Application which hosts a server of a university club management website.
 
 
 ### Programming knowledge applied:
+
 * HTML, CSS and Javascript (AJAX and Vue.js) used for front-end development
 * Express server used for back-end development of the server
 * MySQL used to create the database which is used to store the user credentials
 * cookies and server sessions has been used to identify users.
 
-### Key Learnings Outcomes:    
+### Key Learnings Outcomes: 
+
 1. Understand principles of designing user friendly websites.    
 2. Write standards compliant websites in HTML & CSS.  
 3. Develop dynamic, client-side web content using Javascript.    
