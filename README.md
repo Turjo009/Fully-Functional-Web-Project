@@ -23,6 +23,9 @@ A Web Application which hosts a server of a university club management website.
 - Email notifications
  - Users who signed up will receive email notifications from clubs for things like updates and special events.
 
+(Note that there is a demonstration video of all the features located in /Demonstration/Club Website Demonstration.mp4)
+
+
 ### Programming knowledge applied:
 * HTML, CSS and Javascript (AJAX and Vue.js) used for front-end development
 * Express server used for back-end development of the server
