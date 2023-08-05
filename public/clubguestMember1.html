@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>individual club guest & Member</title>
+    <link rel="stylesheet" type="text/css" href="club.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+<div id="app">
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+        <nav>
+            <ul>
+            <li><a href="home.html">Home</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+              <li><a href="memberDetails.html">Manage Info</a></li>
+              <li style="float: right;"><a href="sign.html">Sign up</a></li>
+              <li style="float: right;"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero" v-bind:style="{'background-image': 'url('+ clubImageUrl +')'}">
+      <div class="hero-content">
+        <h1>{{clubName}}</h1>
+        <p>{{clubDetails}}</p>
+        <button id="join-button" class="button" type="button">Join now!</button>
+      </div>
+    </section>
+
+    <hr>
+    <section class="club-events">
+      <h2>Upcoming Events</h2>
+      <ul>
+        <template v-for="(event, index) in events1" :key="index">
+          <li class = "eventContainer" v-if="!event.isPrivate || isMember">
+              <h3>{{event.title}}</h3>
+              <p>Date: {{event.date}}</p>
+              <p>Location: {{event.location}}</p>
+              <p>Description: {{event.description}}</p>
+              <button type="button" @click="joinEvent(event.event_id)"> Going </button>
+          </li>
+        </template>
+      </ul>
+  </section>
+
+  <hr>
+
+  <section class="club-updates">
+      <h2>Recent Updates</h2>
+      <ul>
+        <template v-for="(update, index) in updates1" :key="index">
+          <li class = "eventContainer" v-if="!update.isPrivate || isMember">
+              <h3>{{update.title}}</h3>
+              <p>Date: {{update.date}}</p>
+              <p>Description: {{update.description}}</p>
+          </li>
+        </template>
+      </ul>
+  </section>
+      <footer>
+        <div class="footer-content">
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="https://www.facebook.com">Facebook</a></li>
+              <li><a href="https://www.instagram.com">Instagram</a></li>
+            </ul>
+          </div>
+    </footer>
+  </div>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          events1: [],
+          updates1: [],
+          isMember: false,
+          event: {},
+          update: {},
+          clubName: localStorage.getItem('clubName1') || 'Drama Club',
+          clubDetails: localStorage.getItem('clubDetails1') || 'A club for all those interested in live acting and performance.',
+          clubImageUrl: localStorage.getItem('clubImageUrl1') || 'https://media.zicxa.com/16710'
+        };
+      },
+      methods: {
+        joinClub: function() {
+          fetch('/isLoggedIn')
+          .then(response => response.json())
+          .then(data => {
+              if (data.status === 'success') {
+                  fetch('/addToClub1', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      if (data.status === 'success') {
+                          alert('You have successfully joined the club!');
+                      } else {
+                          alert('Failed to join the club: ' + data.message);
+                      }
+                  })
+                  .catch((error) => {
+                      console.error('Error:', error);
+                      alert('An error occurred. Please try again later.');
+                  });
+              } else {
+                  window.location.href = '/login.html';
+              }
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again later.');
+          });
+        },
+        joinEvent(event_id) {
+          fetch('/joinEvent1', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ event_id: event_id }),
+        })
+          .then(response => response.json())
+          .then(data => {
+              if (data.status === 'success') {
+                  alert('You have successfully joined the event!');
+              } else {
+                  alert('Failed to join the event: ' + data.message);
+              }
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again later.');
+          });
+      }
+      },
+      mounted() {
+        document.getElementById('join-button').addEventListener('click', this.joinClub);
+
+        // Check if there are any events or updates stored in localStorage.
+        if (localStorage.getItem('events1')) {
+          // Parse the stored string back into an array of events.
+          this.events1 = JSON.parse(localStorage.getItem('events1'));
+        }
+
+        if (localStorage.getItem('updates1')) {
+          // Parse the stored string back into an array of updates.
+          this.updates1 = JSON.parse(localStorage.getItem('updates1'));
+        }
+        fetch('/isClubMember2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            if (data.status === 'success') {
+              this.isMember = data.isMember; // Store the user's club membership status in the Vue instance.
+            } else {
+              alert('Failed to fetch the user\'s club membership status: ' + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+          });
+      }
+    }).mount('#app');
+  </script>
+  </body>
+</html>

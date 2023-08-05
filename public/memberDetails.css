@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  padding-top: 10%; /* add padding-top equal to the height of the header */
+}
+
+  h1 {
+    text-align: center;
+  }
+
+  form {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
+  input[type=text]:hover,
+  input[type=email]:hover,
+  input[type=password]:hover {
+    background-color: #e6e6e6;
+  }
+
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus {
+    background-color: #fff;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
+    color: #333;
+  }
+
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .edit-btn {
+    background-color: #f2f2f2;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: -40px;
+    position: relative; /* add this line */
+    z-index: 1; /* add this line */
+  }
+
+  .edit-btn:hover {
+    background-color: #e6e6e6;
+  }
+
+  header {
+    background-color: green;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0; /* ensure header sticks to the top of the page */
+    left: 0; /* ensure header sticks to the left of the page */
+    width: 100%;
+    height: 10%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box; /* include padding and border in element's total width and height */
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%; /* make nav take the full width */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin-right: 20px; /* add right margin to the unordered list */
+}
+
+  nav li {
+    margin-right: 20px;
+  }
+
+  nav li:last-child {
+    margin-right: 0;
+  }
+
+  nav a {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .button {
+    background-color: pink;
+  }

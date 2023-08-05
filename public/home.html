@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>Home Page</title>
+  <link rel="stylesheet" type="text/css" href="club.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="club.js" defer></script>
+  <style>
+    .hero-content:hover {
+      background-color: rgba(0, 0, 0, 0.634);
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" style="background-image: url(University-of-Adelaide.jpg); background-size: cover; background-position: center;" >
+  <header>
+    <div class="search-container">
+      <button type="submit">Search</button>
+      <input type="text" placeholder="Search...">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul>
+        <li><a href="memberDetails.html">Manage Info</a></li>
+        <li style="float: right;"><a href="sign.html">Sign up</a></li>
+        <li style="float: right;"><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Student Club Platform</h1>
+      <h2>Join clubs, attend events, and connect with like-minded peers.</h2>
+      <h2><a href="sign.html" style="color: rgb(255, 225, 0);">Sign up</a> now to join a club today</h2>
+    </div>
+  </section>
+
+  <div class="club-container-home">
+    <a href="/getClubPage" class="club-info" style="background-image: url(https://www.diabetes.co.uk/wp-content/uploads/2019/01/sports-%E2%80%93-tennis.jpg); background-size: cover; background-position: center;">
+      <h3>Tennis Club</h3>
+    </a>
+    <a href="/getClubPage1" class="club-info" style="background-image: url(Drama_banner.jpg); background-size: cover; background-position: center;">
+      <h3>Drama Club</h3>
+    </a>
+    <a href="/getClubPage2" class="club-info" style="background-image: url(https://static.vecteezy.com/system/resources/previews/000/540/684/original/cinema-banner-alphabet-sign-marquee-light-bulb-vintage-vector.jpg); background-size: cover; background-position: center;">
+      <h3>Film Club</h3>
+    </a>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="https://www.facebook.com">Facebook</a></li>
+        <li><a href="https://www.instagram.com">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+</body>
+
+</html>

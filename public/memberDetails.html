@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Details</title>
+    <link rel="stylesheet" type="text/css" href="memberDetails.css">
+    <script>
+        function enableEdit(fieldId) {
+            document.getElementById(fieldId).readOnly = false;
+            document.getElementById(fieldId).focus();
+        }
+
+        window.onload = function() {
+          // Check if user is logged in
+          fetch('/api/isLoggedIn')
+            .then(response => {
+              if (response.status === 401) {
+                window.location.href = '/login.html';
+              }
+            });
+
+          // Handle form submission
+          document.querySelector('form').addEventListener('submit', function(e) {
+            // prevent form from being submitted in the usual way
+            e.preventDefault();
+
+            // get form data
+            const formData = {
+              firstname: document.getElementById('firstname').value,
+              lastname: document.getElementById('lastname').value,
+              email: document.getElementById('email').value,
+              password: document.getElementById('password').value,
+              username: document.getElementById('username').value
+            };
+
+            // send data to server
+            fetch('/api/updateUser', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(({ message }) => console.log('Success:', message))
+            .catch(({ message }) => console.error('Error:', message));
+          });
+        };
+    </script>
+</head>
+
+
+<body>
+    <header>
+        <nav>
+            <ul>
+            <li><a href="home.html">Home</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+              <li><a href="memberDetails.html">Manage Info</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Change User Details</h1>
+    <form>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" readonly>
+        <button type="button" class="edit-btn" onclick="enableEdit('firstname')">Edit</button><br><br>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" readonly>
+        <button type="button" class="edit-btn" onclick="enableEdit('lastname')">Edit</button><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" readonly>
+        <button type="button" class="edit-btn" onclick="enableEdit('email')">Edit</button><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" readonly>
+        <button type="button" class="edit-btn" onclick="enableEdit('password')">Edit</button><br><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" readonly>
+        <button type="button" class="edit-btn" onclick="enableEdit('username')">Edit</button><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

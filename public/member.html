@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Management</title>
+  <style>
+    .button-container {
+      margin-top: 20px;
+    }
+    .button-container button {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Management</h1>
+
+  <label for="users">Choose a user:</label>
+  <select id="users">
+    <!-- Usernames will go here -->
+  </select>
+
+  <div class="button-container">
+    <button id="delete-button">Delete User</button>
+    <button id="promote-admin-button">Promote to Admin</button>
+    <button id="promote-manager-button">Promote to Manager</button>
+    <button id="promote-manager1-button">Promote to Manager1</button>
+    <button id="promote-manager2-button">Promote to Manager2</button>
+  </div>
+
+  <script>
+    window.onload = function() {
+      // Fetch users from the server
+      fetch('/api/users')
+        .then(response => response.json())
+        .then(users => {
+          const select = document.getElementById('users');
+          // Create an option for each user
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.username;
+            option.textContent = user.username;
+            select.appendChild(option);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    };
+// Handle 'Delete User' button
+document.getElementById('delete-button').addEventListener('click', function() {
+  const { value: username } = document.getElementById('users');
+  fetch('/api/users/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username }),
+  })
+  .then(response => response.json())
+  .then(({ message }) => console.log('Success:', message))
+  .catch(({ message }) => console.error('Error:', message));
+});
+
+// Client-side function for sending the promote request
+function promoteUser(endpoint) {
+  const { value: username } = document.getElementById('users');
+  fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username }),
+  })
+  .then(response => response.json())
+  .then(({ message }) => console.log('Success:', message))
+  .catch(({ message }) => console.error('Error:', message));
+}
+
+document.getElementById('promote-admin-button').addEventListener('click', function() {
+  promoteUser('/api/users/promoteAdmin');
+});
+
+document.getElementById('promote-manager1-button').addEventListener('click', function() {
+  promoteUser('/api/users/promoteManager1');
+});
+
+document.getElementById('promote-manager2-button').addEventListener('click', function() {
+  promoteUser('/api/users/promoteManager2');
+});
+
+document.getElementById('promote-manager-button').addEventListener('click', function() {
+  promoteUser('/api/users/promoteManager');
+});
+
+
+
+  </script>
+</body>
+</html>

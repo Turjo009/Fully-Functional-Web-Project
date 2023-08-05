@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>ADMIN CLub</title>
+  <link rel="stylesheet" type="text/css" href="club.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="club2.js" defer></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <header>
+      <div class="search-container">
+        <button type="submit">Search</button>
+        <input type="text" placeholder="Search...">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="memberDetails.html">Manage Info</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="hero" v-bind:style="{'background-image': 'url('+ clubImageUrl2 +')'}">
+      <div class="hero-content">
+        <h1>{{clubName2}}</h1>
+        <p>{{clubDetails2}}</p>
+        <button type="button" class="edit-event" v-on:click="editClubDetails">Edit</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <section class="club-events">
+
+      <form id="create_event">
+        <h2>Add New Upcoming Events:</h2>
+        <label for="event_title">Title:</label>
+        <input class="postInputBox" type="text" id="event_title" name="event_title" v-model="eventData.title"><br>
+
+        <label for="event_location">Location:</label>
+        <input class="postInputBox" type="text" id="event_location" name="event_location"
+          v-model="eventData.location"><br>
+
+        <label for="event_description">Description:</label>
+        <textarea id="event_description" name="event_description" v-model="eventData.description"></textarea><br>
+
+        <label for="isPrivateEvent">Private event (visible to club members only):</label>
+        <input type="checkbox" id="isPrivateEvent" v-model="eventData.isPrivate"><br>
+
+        <input type="submit" value="Create Event" v-on:click="createEvent()">
+      </form>
+      <div v-if="eventMembers.length > 0">
+        <h3>Members:</h3>
+        <ul>
+          <li v-for="member in eventMembers">{{ member.user_id }}</li>
+        </ul>
+      </div>
+      <div v-for="(e,indexEvent2) in events2">
+        <div class="eventContainer">
+          <h3>{{e.title}}</h3>
+          <p v-html="'<b>DATE: </b>' + e.date"></p>
+          <p v-html="'<b>LOCAION: </b>' + e.location"></p>
+          <p v-html="'<b>DETAILS: </b>' + e.description">{{e.description}}</p>
+        </div>
+
+        <!-- <button type="button">Going</button> -->
+        <button type="button" class="delete-event" v-on:click="deleteEvent(indexEvent2)">Delete</button>
+        <button type="button" class="edit-event" v-on:click="editEvent(indexEvent2)">Edit</button>
+        <button type="button" class="see-members-event" v-on:click="fetchEventMembers(indexEvent2)">See Members</button>
+
+      </div>
+
+    </section>
+
+    <hr>
+
+    <section class="club-updates">
+
+      <form id="create_updates">
+        <h2>Recent Updates</h2>
+        <label for="title">Title:</label>
+        <input class="postInputBox" type="text" id="title" name="title" v-model="updatesData.title"><br>
+
+        <label for="description">description:</label>
+        <textarea id="description" name="description" v-model="updatesData.description"></textarea><br>
+
+        <label for="isPrivateUpdate">Private update (visible to club members only):</label>
+        <input type="checkbox" id="isPrivateUpdate" v-model="updatesData.isPrivate"><br>
+
+        <input type="submit" value="Create Update" v-on:click="createUpdates()">
+      </form>
+
+      <div v-for="(u,indexUpdates2) in updates2">
+        <div class="updatesContainer">
+          <h3>{{u.title}}</h3>
+          <p v-html="'<b>DATE: </b>' + u.date "></p>
+          <p v-html="'<b>DESCRIPTION: </b>' + u.description"></p>
+          <button type="button" class="delete-update" v-on:click="deleteUpdates(indexUpdates2)">Delete</button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <footer>
+      <div class="footer-content">
+        <ul class="footer-links">
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="https://www.facebook.com">Facebook</a></li>
+          <li><a href="https://www.instagram.com">Instagram</a></li>
+        </ul>
+      </div>
+    </footer>
+
+
+  </div>
+  <script src="email2.js"></script>
+</body>
+
+</html>
